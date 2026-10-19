@@ -13,7 +13,10 @@ export default async function prepareElectronRuntime(context: FakemicElectronPre
     const url = new URL(page.url())
     return url.pathname.endsWith('/index.html') && url.hash === '#/'
   })
-  await page.locator('[i-solar\\:alt-arrow-up-line-duotone]').first().waitFor({ state: 'visible', timeout: 30_000 })
+  // ROOT CAUSE:
+  // The controls arrow changed from an HTML attribute to a CSS class, so the old attribute selector never matched.
+  // Wait for the controls container's existing test ID instead of its icon styling.
+  await page.getByTestId('main-controls').waitFor({ state: 'visible', timeout: 30_000 })
   await page.evaluate(stubForBrowser, browserProbeOptions)
 
   return createSession({
