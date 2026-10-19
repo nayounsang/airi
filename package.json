@@ -33,7 +33,7 @@
     "build:packages": "turbo run build -F=\"./packages/*\"",
     "build:engines": "turbo run build -F=\"./engines/*\"",
     "test": "vitest --coverage",
-    "test:run": "turbo run test:run --concurrency=2",
+    "test:run": "turbo run test:run --concurrency=1",
     "test:root": "vitest run",
     "lint": "moeru-lint .",
     "lint:fix": "moeru-lint --fix .",
